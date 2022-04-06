@@ -3,16 +3,24 @@ from conans.tools import os_info, SystemPackageTool
 
 
 class OisConan(ConanFile):
-    name = "OIS"
-    version = "1.5.1"
+    name = "ois"
+    version = "1.4"
     license = "zlib"
     author = "Edgar Edgar@AnotherFoxGuy.com"
     url = "https://github.com/AnotherFoxGuy/conan-OIS/"
     description = "Object oriented Input System"
     topics = ("Input", "System")
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
-    exports_sources = "source/*"
+    generators = "cmake_find_package"
+    exports_sources = [
+        "includes/*",
+        "src/*",
+        "CMakeLists.txt"
+    ]
+
+    def requirements(self):
+        if os_info.is_windows:
+            self.requires("directx-sdk/9.0@anotherfoxguy/stable")
 
     def system_requirements(self):
         if os_info.is_linux:
@@ -22,8 +30,7 @@ class OisConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions['OIS_BUILD_DEMOS'] = 'OFF'
-        cmake.configure(source_folder="source")
+        cmake.configure()
         cmake.build()
 
     def package(self):
