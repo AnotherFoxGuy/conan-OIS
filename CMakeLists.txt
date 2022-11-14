@@ -59,7 +59,7 @@ if (WIN32)
             src/win32/extras/WiiMote/wiimote.cpp
             )
     # need DirectX includes and libraries
-    set(OIS_PLATFORM_LIBS DirectX9::DirectX9 dinput8)
+    set(OIS_PLATFORM_LIBS directx-sdk::directx-sdk dinput8)
     if (MINGW)
         # standard MinGW cannot cope with the new Win32JoyStick implementation
         # therefore we use the old one from OIS 1.2
