@@ -4,6 +4,7 @@ from conan.tools.cmake import CMakeToolchain, CMake, CMakeDeps, cmake_layout
 from conan.tools.system import package_manager
 
 
+# --user rigsofrods --channel custom
 class OisConan(ConanFile):
     name = "ois"
     version = "1.4.1"
@@ -32,6 +33,7 @@ class OisConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["OIS_BUILD_DEMOS"] = "OFF"
+        tc.variables["CMAKE_DEBUG_POSTFIX"] = "d"
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
